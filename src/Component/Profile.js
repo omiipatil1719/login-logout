@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { mockApi } from "./mock";
 
 const isValid = (values, setError) => {
     if (!values?.userName || values?.userName?.trim() === '') {
@@ -26,7 +25,6 @@ const isValid = (values, setError) => {
 }
 
 function App() {
-    const [error, setError] = useState('');
 
     const [formState, setFormState] = useState({
         userName: '',
@@ -34,6 +32,7 @@ function App() {
         password: '',
     });
 
+    const [error, setError] = useState('');
 
     const inptChange = (e) => {
         const { name, value } = e.target;
@@ -47,21 +46,12 @@ function App() {
         e.preventDefault();
 
         if (isValid(formState, setError)) {
-            
-            mockApi(formState)
-            .then(res => {
-                alert(res.message);
-                setFormState({
-                    userName: '',
-                    email: '',
-                    password: '',
-                });
-    
-            })
-            .catch(err => {
-                alert(err.message);
+            alert('submitted successfully');
+            setFormState({
+                userName: '',
+                email: '',
+                password: '',
             });
-
         }
     }
 
@@ -85,11 +75,8 @@ function App() {
             {
                 error ? <p style={{ color: 'red' }}>{error}</p> : null
             }
-
         </>
     );
 }
 
 export default App;
-
-
